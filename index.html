@@ -1,0 +1,418 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Vektor Studio — Sites vitrines et outils de gestion sur mesure</title>
+<meta name="description" content="Vektor Studio conçoit des sites vitrines clairs et des outils de gestion sur mesure pour structurer et développer les petites entreprises.">
+<meta name="theme-color" content="#1E3A8A">
+<meta property="og:title" content="Vektor Studio — Sites vitrines et outils de gestion sur mesure">
+<meta property="og:description" content="Sites vitrines clairs et outils de gestion sur mesure pour les petites entreprises.">
+<meta property="og:type" content="website">
+<link rel="icon" href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 32 32'%3E%3Crect width='32' height='32' rx='7' fill='%231E3A8A'/%3E%3Cpath d='M8 9l8 14 8-14' fill='none' stroke='white' stroke-width='3' stroke-linecap='round' stroke-linejoin='round'/%3E%3C/svg%3E">
+<!-- Production : remplacer ce CDN par un build Tailwind (CLI ou Next.js). -->
+<script src="https://cdn.tailwindcss.com/3.4.17"></script>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600&display=swap" rel="stylesheet">
+<script>
+tailwind.config={theme:{extend:{fontFamily:{sans:['Inter','system-ui','sans-serif']},colors:{brand:{50:'#EFF6FF',600:'#2563EB',800:'#1E3A8A',900:'#172554'}}}}}
+</script>
+<style type="text/tailwindcss">
+@layer base{
+ html{scroll-padding-top:5.5rem}
+ @media (prefers-reduced-motion:no-preference){html{scroll-behavior:smooth}}
+ body{@apply font-sans text-slate-700 antialiased}
+ :focus-visible{outline:3px solid #2563EB;outline-offset:2px}
+}
+@layer components{
+ .wrap{@apply mx-auto max-w-6xl px-4 sm:px-6 lg:px-8}
+ .sec{@apply py-16 sm:py-24}
+ .h2{@apply text-2xl font-semibold tracking-tight text-slate-900 sm:text-3xl}
+ .lead{@apply mt-3 max-w-2xl text-base text-slate-600}
+ .btn-p{@apply inline-flex h-12 items-center justify-center rounded-lg bg-brand-800 px-6 text-base font-medium text-white shadow-sm transition-colors hover:bg-brand-600}
+ .btn-s{@apply inline-flex h-12 items-center justify-center rounded-lg border border-slate-300 bg-white px-6 text-base font-medium text-slate-800 transition-colors hover:bg-slate-50}
+ .btn-sm{@apply inline-flex min-h-11 items-center justify-center rounded-lg border border-slate-300 bg-white px-3 text-sm font-medium text-slate-800 hover:bg-slate-100}
+ .card{@apply rounded-xl border border-slate-200 bg-white p-6 sm:p-7}
+ .inp{@apply h-12 w-full rounded-lg border border-slate-300 bg-white px-3.5 text-base text-slate-900 placeholder:text-slate-500 aria-[invalid=true]:border-red-600}
+ .lbl{@apply mb-1.5 block text-sm font-medium text-slate-800}
+ .err{@apply mt-1.5 hidden text-sm text-red-700}
+ .ck{@apply space-y-3 text-slate-700}
+ .ck li{@apply relative pl-7}
+ .ck li::before{content:"✓";@apply absolute left-0 font-semibold text-brand-800}
+ .tab{@apply min-h-11 rounded-md px-4 text-sm font-medium text-slate-700 aria-selected:bg-white aria-selected:text-slate-900 aria-selected:shadow-sm}
+}
+.grid-bg{background-image:linear-gradient(to right,#F1F5F9 1px,transparent 1px),linear-gradient(to bottom,#F1F5F9 1px,transparent 1px);background-size:40px 40px}
+</style>
+</head>
+<body class="bg-white selection:bg-brand-800 selection:text-white">
+<a href="#main" class="sr-only focus:not-sr-only focus:fixed focus:left-4 focus:top-4 focus:z-[60] focus:rounded-lg focus:bg-white focus:px-4 focus:py-2 focus:shadow-md">Aller au contenu</a>
+
+<!-- ============ HEADER ============ -->
+<header class="sticky top-0 z-50 border-b border-slate-200 bg-white/95 backdrop-blur">
+ <div class="wrap flex h-16 items-center justify-between sm:h-20">
+  <a href="#" class="flex items-center gap-3" aria-label="Vektor Studio, accueil">
+   <span class="grid h-9 w-9 place-items-center rounded-lg bg-brand-800 text-white">
+    <svg class="h-5 w-5" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M4 5L12 19L20 5"/><path d="M9 5L12 10.5L15 5" stroke-opacity=".65"/></svg>
+   </span>
+   <span class="text-lg font-semibold leading-none tracking-tight text-slate-900">Vektor <span class="font-normal text-slate-600">Studio</span></span>
+  </a>
+  <nav aria-label="Navigation principale" class="hidden items-center gap-8 text-sm font-medium text-slate-700 md:flex">
+   <a class="hover:text-brand-800" href="#services">Services</a>
+   <a class="hover:text-brand-800" href="#demonstrations">Démonstrations</a>
+   <a class="hover:text-brand-800" href="#tarifs">Tarifs</a>
+   <a class="hover:text-brand-800" href="#faq">FAQ</a>
+   <a class="hover:text-brand-800" href="#contact">Contact</a>
+  </nav>
+  <div class="flex items-center gap-2">
+   <a href="#contact" class="inline-flex h-11 items-center rounded-lg bg-brand-800 px-4 text-sm font-medium text-white hover:bg-brand-600"><span class="sm:hidden">Démo</span><span class="hidden sm:inline">Demander une démo</span></a>
+   <button id="menu-btn" type="button" aria-label="Menu" aria-expanded="false" aria-controls="menu" class="grid h-11 w-11 place-items-center rounded-lg border border-slate-200 text-slate-700 md:hidden">
+    <svg class="h-5 w-5" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24" aria-hidden="true"><path stroke-linecap="round" d="M4 6h16M4 12h16M4 18h16"/></svg>
+   </button>
+  </div>
+ </div>
+ <nav id="menu" aria-label="Menu mobile" class="hidden border-t border-slate-200 bg-white px-4 pb-4 pt-2 md:hidden">
+  <a class="block rounded-lg px-3 py-3 font-medium text-slate-800 hover:bg-slate-50" href="#services">Services</a>
+  <a class="block rounded-lg px-3 py-3 font-medium text-slate-800 hover:bg-slate-50" href="#demonstrations">Démonstrations</a>
+  <a class="block rounded-lg px-3 py-3 font-medium text-slate-800 hover:bg-slate-50" href="#tarifs">Tarifs</a>
+  <a class="block rounded-lg px-3 py-3 font-medium text-slate-800 hover:bg-slate-50" href="#faq">FAQ</a>
+  <a class="block rounded-lg bg-brand-50 px-3 py-3 font-medium text-brand-800" href="#contact">Contact et démo</a>
+ </nav>
+</header>
+
+<main id="main">
+<!-- ============ HERO ============ -->
+<section class="grid-bg border-b border-slate-200">
+ <div class="wrap grid items-center gap-12 py-16 sm:py-24 lg:grid-cols-12 lg:gap-10">
+  <div class="space-y-6 lg:col-span-7">
+   <p class="inline-block rounded-full border border-slate-200 bg-slate-100 px-3 py-1.5 text-sm text-slate-700">Solutions numériques pour PME, commerces et prestataires</p>
+   <h1 class="text-3xl font-semibold leading-tight tracking-tight text-slate-900 sm:text-4xl lg:text-5xl">Des sites vitrines clairs et des outils de gestion sur mesure pour structurer votre activité.</h1>
+   <p class="max-w-2xl text-lg text-slate-600">Gagnez en crédibilité auprès de vos clients et remplacez les cahiers ou fichiers dispersés par des interfaces simples, fiables et adaptées à votre façon de travailler.</p>
+   <div class="flex flex-col gap-3 pt-2 sm:flex-row sm:items-center">
+    <a href="#contact" class="btn-p">Demander une démo</a>
+    <a href="#demonstrations" class="inline-flex h-12 items-center justify-center px-2 text-base font-medium text-brand-800 hover:underline">Essayer l'outil en ligne</a>
+   </div>
+   <p class="text-sm text-slate-600">Réponse sous 24 h ouvrées. Confidentialité totale sur vos données d'entreprise.</p>
+  </div>
+  <div class="lg:col-span-5" aria-hidden="true">
+   <div class="card space-y-4 shadow-sm">
+    <div class="flex items-center justify-between border-b border-slate-100 pb-3">
+     <span class="text-sm font-medium text-slate-700">Tableau de pilotage</span>
+     <span class="rounded bg-slate-100 px-2.5 py-0.5 text-xs font-medium text-slate-700">Exemple illustratif</span>
+    </div>
+    <div class="grid grid-cols-2 gap-3">
+     <div class="rounded-lg border border-slate-200 bg-slate-50 p-3.5"><p class="text-sm text-slate-600">Demandes clients</p><p class="mt-1 text-lg font-semibold text-slate-900">Centralisées</p></div>
+     <div class="rounded-lg border border-slate-200 bg-slate-50 p-3.5"><p class="text-sm text-slate-600">Stocks et devis</p><p class="mt-1 text-lg font-semibold text-slate-900">Suivis</p></div>
+    </div>
+    <div class="flex items-center justify-between rounded-lg border border-slate-100 p-3"><div><p class="text-sm font-medium text-slate-800">Catalogue et vitrine en ligne</p><p class="text-sm text-slate-600">Présentation claire des offres</p></div><span class="rounded bg-slate-100 px-2 py-1 text-xs font-medium text-slate-700">Actif</span></div>
+    <div class="flex items-center justify-between rounded-lg border border-slate-100 p-3"><div><p class="text-sm font-medium text-slate-800">Registre entrées / sorties</p><p class="text-sm text-slate-600">Calcul automatique des soldes</p></div><span class="rounded bg-slate-100 px-2 py-1 text-xs font-medium text-slate-700">Synchronisé</span></div>
+   </div>
+  </div>
+ </div>
+</section>
+
+<!-- ============ SERVICES ============ -->
+<section id="services" class="sec">
+ <div class="wrap">
+  <h2 class="h2">Deux leviers concrets pour professionnaliser votre entreprise</h2>
+  <p class="lead">Une vitrine fiable pour convaincre à l'extérieur, un outil clair pour piloter à l'intérieur. Rien de superflu.</p>
+  <div class="mt-12 grid gap-8 md:grid-cols-2">
+   <article class="card flex flex-col bg-slate-50/60">
+    <h3 class="text-xl font-semibold text-slate-900">Sites vitrines et présence pro</h3>
+    <p class="mt-2.5 text-slate-600">Offrez à vos clients, fournisseurs et partenaires une image sérieuse, accessible à tout moment.</p>
+    <ul class="ck mt-6">
+     <li><strong>Présentation claire :</strong> services, zone d'intervention, références et coordonnées directes.</li>
+     <li><strong>Catalogue ou prestations :</strong> fiches lisibles, pour ne plus répéter les mêmes informations par téléphone.</li>
+     <li><strong>Demande de devis rapide :</strong> formulaire structuré relié à votre messagerie ou à WhatsApp. Léger sur mobile.</li>
+    </ul>
+    <div class="mt-auto flex flex-wrap items-center justify-between gap-3 border-t border-slate-200 pt-5">
+     <span class="text-sm text-slate-600">Idéal pour : commerces, BTP, services, cabinets</span>
+     <a href="#demonstrations" data-tab="vitrine" class="inline-flex min-h-11 items-center font-medium text-brand-800 hover:underline">Voir l'aperçu</a>
+    </div>
+   </article>
+   <article class="card flex flex-col bg-slate-50/60">
+    <h3 class="text-xl font-semibold text-slate-900">Outils de gestion sur mesure</h3>
+    <p class="mt-2.5 text-slate-600">Remplacez cahiers papier et fichiers Excel éparpillés par une application web taillée sur vos opérations.</p>
+    <ul class="ck mt-6">
+     <li><strong>Stocks en temps réel :</strong> alertes de seuil bas, historique des mouvements, valorisation instantanée.</li>
+     <li><strong>Ventes, devis et dépenses :</strong> encaissements et bilans journaliers ou mensuels, clairs.</li>
+     <li><strong>Commandes et dossiers clients :</strong> historique et avancement de chaque client en quelques secondes.</li>
+    </ul>
+    <div class="mt-auto flex flex-wrap items-center justify-between gap-3 border-t border-slate-200 pt-5">
+     <span class="text-sm text-slate-600">Idéal pour : dépôts, quincailleries, logistique, points de vente</span>
+     <a href="#demonstrations" data-tab="gestion" class="inline-flex min-h-11 items-center font-medium text-brand-800 hover:underline">Tester l'outil</a>
+    </div>
+   </article>
+  </div>
+ </div>
+</section>
+
+<!-- ============ DÉMONSTRATIONS ============ -->
+<section id="demonstrations" class="sec border-y border-slate-200 bg-slate-50">
+ <div class="wrap">
+  <div class="flex flex-col justify-between gap-6 md:flex-row md:items-end">
+   <div>
+    <h2 class="h2">Testez concrètement ce que nous construisons</h2>
+    <p class="lead">Manipulez un outil de gestion de stock, puis découvrez un modèle de site vitrine adaptable à votre secteur.</p>
+   </div>
+   <div role="tablist" aria-label="Choisir une démonstration" class="inline-flex self-start rounded-lg border border-slate-200 bg-slate-200/80 p-1">
+    <button role="tab" id="t-gestion" aria-controls="p-gestion" aria-selected="true" class="tab">Outil de gestion</button>
+    <button role="tab" id="t-vitrine" aria-controls="p-vitrine" aria-selected="false" tabindex="-1" class="tab">Site vitrine</button>
+   </div>
+  </div>
+
+  <!-- Démo A : stock -->
+  <div id="p-gestion" role="tabpanel" aria-labelledby="t-gestion" class="mt-10 overflow-hidden rounded-xl border border-slate-200 bg-white">
+   <div class="bg-slate-900 px-5 py-4 text-white"><span class="text-sm font-medium">Vektor Stock et Ventes</span><span class="ml-3 text-sm text-slate-300">Enregistrez une entrée, une vente ou ajoutez un article.</span></div>
+   <div class="space-y-6 p-4 sm:p-8">
+    <dl class="grid gap-4 sm:grid-cols-3">
+     <div class="rounded-lg border border-slate-200 bg-slate-50 p-4"><dt class="text-sm text-slate-600">Articles en catalogue</dt><dd id="k-n" class="mt-1 text-2xl font-semibold text-slate-900">0</dd></div>
+     <div class="rounded-lg border border-slate-200 bg-slate-50 p-4"><dt class="text-sm text-slate-600">Valeur du stock</dt><dd id="k-v" class="mt-1 text-2xl font-semibold text-brand-800">0 $</dd></div>
+     <div class="rounded-lg border border-slate-200 bg-slate-50 p-4"><dt class="text-sm text-slate-600">Alertes seuil critique</dt><dd id="k-l" class="mt-1 text-2xl font-semibold text-slate-900">0</dd></div>
+    </dl>
+    <div class="flex flex-col gap-3 lg:flex-row lg:items-end lg:justify-between">
+     <div class="max-w-md flex-1"><label for="s-q" class="lbl">Filtrer par référence ou désignation</label><input id="s-q" type="search" class="inp" placeholder="Ex : ciment"></div>
+     <form id="add" class="grid grid-cols-2 gap-2 sm:grid-cols-[1fr_5rem_6rem_auto]">
+      <div class="col-span-2 sm:col-span-1"><label for="a-n" class="lbl">Article</label><input id="a-n" required class="inp" placeholder="Ex : Câble 2,5 mm"></div>
+      <div><label for="a-q" class="lbl">Qté</label><input id="a-q" type="number" min="1" required class="inp"></div>
+      <div><label for="a-p" class="lbl">Prix ($)</label><input id="a-p" type="number" min="1" step="0.5" required class="inp"></div>
+      <button class="btn-p col-span-2 self-end sm:col-span-1">Ajouter</button>
+     </form>
+    </div>
+    <div class="overflow-x-auto rounded-lg border border-slate-200">
+     <table class="w-full border-collapse text-left text-sm">
+      <caption class="sr-only">Articles en stock</caption>
+      <thead class="bg-slate-50 text-slate-700"><tr class="border-b border-slate-200">
+       <th scope="col" class="hidden px-4 py-3 font-semibold sm:table-cell">Réf.</th><th scope="col" class="px-4 py-3 font-semibold">Désignation</th><th scope="col" class="hidden px-4 py-3 font-semibold sm:table-cell">Prix</th><th scope="col" class="px-4 py-3 font-semibold">Qté</th><th scope="col" class="hidden px-4 py-3 font-semibold md:table-cell">Statut</th><th scope="col" class="sticky right-0 bg-slate-50 px-4 py-3 text-right font-semibold">Mouvements</th>
+      </tr></thead>
+      <tbody id="rows" class="divide-y divide-slate-200"></tbody>
+     </table>
+    </div>
+    <div class="flex items-center justify-between gap-4 rounded-lg border border-slate-200 bg-slate-50 px-4 py-2.5 text-sm text-slate-700">
+     <span id="log" aria-live="polite">Cliquez sur « Vente » ou « Entrée » pour simuler un mouvement.</span>
+     <button type="button" id="reset" class="inline-flex min-h-11 shrink-0 items-center font-medium text-brand-800 hover:underline">Réinitialiser</button>
+    </div>
+   </div>
+  </div>
+
+  <!-- Démo B : vitrine -->
+  <div id="p-vitrine" role="tabpanel" aria-labelledby="t-vitrine" hidden class="mt-10 overflow-hidden rounded-xl border border-slate-200 bg-white">
+   <div class="flex flex-wrap items-center justify-between gap-3 bg-slate-900 px-5 py-3 text-white">
+    <span class="text-sm font-medium">Aperçu d'un site client (non cliquable)</span>
+    <div class="flex items-center gap-2" role="group" aria-label="Secteur de l'aperçu">
+     <button type="button" data-s="materiaux" aria-pressed="true" class="min-h-11 rounded px-3 text-sm font-medium bg-slate-800 text-slate-200 aria-pressed:bg-white aria-pressed:text-slate-900">Matériaux</button>
+     <button type="button" data-s="logistique" aria-pressed="false" class="min-h-11 rounded px-3 text-sm font-medium bg-slate-800 text-slate-200 aria-pressed:bg-white aria-pressed:text-slate-900">Logistique</button>
+    </div>
+   </div>
+   <div class="bg-slate-100/70 p-4 sm:p-10">
+    <div aria-hidden="true" class="mx-auto max-w-4xl cursor-default select-none overflow-hidden rounded-xl border border-slate-200 bg-white">
+     <div class="flex items-center justify-between border-b border-slate-100 px-5 py-4"><span id="v-brand" class="font-semibold text-slate-900"></span><span class="rounded bg-brand-800 px-3 py-1.5 text-sm font-medium text-white">Demander un devis</span></div>
+     <div class="space-y-6 p-5 sm:p-8">
+      <div class="max-w-xl"><span id="v-badge" class="rounded bg-brand-50 px-2.5 py-1 text-sm font-medium text-brand-800"></span><p id="v-title" class="mt-3 text-xl font-semibold text-slate-900 sm:text-2xl"></p><p id="v-desc" class="mt-2 text-slate-600"></p></div>
+      <div id="v-cards" class="grid gap-4 sm:grid-cols-3"></div>
+      <div class="rounded-lg border border-slate-200 bg-slate-50 p-4"><p id="v-ft" class="font-semibold text-slate-900"></p><p id="v-fs" class="text-sm text-slate-600"></p></div>
+     </div>
+    </div>
+   </div>
+  </div>
+ </div>
+</section>
+
+<!-- ============ MÉTHODE ============ -->
+<section id="methode" class="sec">
+ <div class="wrap">
+  <h2 class="h2">Une méthode directe, sans jargon technique</h2>
+  <p class="lead">Vous validez l'outil avant sa mise en service, puis vous l'adoptez rapidement.</p>
+  <ol class="mt-12 grid gap-6 md:grid-cols-3">
+   <li class="card"><span class="grid h-10 w-10 place-items-center rounded-lg border border-slate-200 bg-slate-100 text-sm font-semibold text-brand-800">1</span><h3 class="mt-5 text-lg font-semibold text-slate-900">Analyse du besoin réel</h3><p class="mt-2.5 text-slate-600">Nous identifions vos priorités : ce qui freine votre visibilité ou vous fait perdre du temps au quotidien.</p><p class="mt-3 text-sm text-slate-600">Durée : [à fournir]</p></li>
+   <li class="card"><span class="grid h-10 w-10 place-items-center rounded-lg border border-slate-200 bg-slate-100 text-sm font-semibold text-brand-800">2</span><h3 class="mt-5 text-lg font-semibold text-slate-900">Prototype rapide et validation</h3><p class="mt-2.5 text-slate-600">Vous testez une première version fonctionnelle et vous ajustez les détails avant la finalisation.</p><p class="mt-3 text-sm text-slate-600">Durée : [à fournir]</p></li>
+   <li class="card"><span class="grid h-10 w-10 place-items-center rounded-lg border border-slate-200 bg-slate-100 text-sm font-semibold text-brand-800">3</span><h3 class="mt-5 text-lg font-semibold text-slate-900">Livraison et prise en main</h3><p class="mt-2.5 text-slate-600">Mise en ligne clé en main, configuration sur vos appareils et accompagnement pour être autonome dès le premier jour.</p><p class="mt-3 text-sm text-slate-600">Durée : [à fournir]</p></li>
+  </ol>
+ </div>
+</section>
+
+<!-- ============ TARIFS (nouveau : prix à fournir) ============ -->
+<section id="tarifs" class="sec border-y border-slate-200 bg-slate-50">
+ <div class="wrap">
+  <h2 class="h2">Des offres claires, adaptées à votre budget</h2>
+  <p class="lead">Les solutions évoluent selon votre budget. Demandez une démo pour obtenir un devis précis.</p>
+  <div class="mt-12 grid gap-6 md:grid-cols-3">
+   <article class="card flex flex-col"><h3 class="text-lg font-semibold text-slate-900">Site vitrine</h3><p class="mt-3 text-2xl font-semibold text-brand-800">À partir de [prix]</p><ul class="ck mt-5 text-sm"><li>[Inclus 1]</li><li>[Inclus 2]</li><li>[Inclus 3]</li></ul><a href="#contact" data-need="Site vitrine professionnel" class="btn-s mt-8">Demander une démo</a></article>
+   <article class="card flex flex-col border-brand-800 ring-1 ring-brand-800"><h3 class="text-lg font-semibold text-slate-900">Pack complet <span class="ml-1 rounded bg-brand-50 px-2 py-0.5 text-sm font-medium text-brand-800">Le plus choisi</span></h3><p class="mt-3 text-2xl font-semibold text-brand-800">À partir de [prix]</p><ul class="ck mt-5 text-sm"><li>Site vitrine + outil de gestion</li><li>[Inclus 2]</li><li>[Inclus 3]</li></ul><a href="#contact" data-need="Pack complet (Site vitrine + Outil de gestion)" class="btn-p mt-8">Demander une démo</a></article>
+   <article class="card flex flex-col"><h3 class="text-lg font-semibold text-slate-900">Outil de gestion</h3><p class="mt-3 text-2xl font-semibold text-brand-800">À partir de [prix]</p><ul class="ck mt-5 text-sm"><li>[Inclus 1]</li><li>[Inclus 2]</li><li>[Inclus 3]</li></ul><a href="#contact" data-need="Outil de gestion sur mesure" class="btn-s mt-8">Demander une démo</a></article>
+  </div>
+  <p class="mt-4 text-sm text-slate-600">« Le plus choisi » est un exemple de mise en avant : à confirmer ou retirer.</p>
+ </div>
+</section>
+
+<!-- ============ PREUVE SOCIALE (nouveau : contenu à fournir) ============ -->
+<section class="sec">
+ <div class="wrap">
+  <h2 class="h2">Ce que disent nos clients</h2>
+  <div class="mt-10 grid gap-6 md:grid-cols-2">
+   <figure class="card"><blockquote class="text-lg text-slate-800">[Témoignage client à fournir : le problème de départ, puis le résultat concret.]</blockquote><figcaption class="mt-4 text-sm text-slate-600">[Prénom Nom], [fonction], [entreprise]</figcaption></figure>
+   <figure class="card"><blockquote class="text-lg text-slate-800">[Deuxième témoignage ou cas client à fournir.]</blockquote><figcaption class="mt-4 text-sm text-slate-600">[Prénom Nom], [fonction], [entreprise]</figcaption></figure>
+  </div>
+ </div>
+</section>
+
+<!-- ============ FAQ ============ -->
+<section id="faq" class="sec border-y border-slate-200 bg-slate-50">
+ <div class="wrap max-w-3xl">
+  <h2 class="h2">Questions fréquentes</h2>
+  <div class="mt-8 divide-y divide-slate-200 border-y border-slate-200">
+   <details class="group py-2"><summary class="flex min-h-11 cursor-pointer list-none items-center justify-between gap-4 font-medium text-slate-900">Combien de temps pour un premier prototype ?<span aria-hidden="true" class="text-xl transition group-open:rotate-45">+</span></summary><p class="pb-3 text-slate-600">[Réponse à fournir]</p></details>
+   <details class="group py-2"><summary class="flex min-h-11 cursor-pointer list-none items-center justify-between gap-4 font-medium text-slate-900">Puis-je voir le résultat avant de m'engager ?<span aria-hidden="true" class="text-xl transition group-open:rotate-45">+</span></summary><p class="pb-3 text-slate-600">Oui. Vous testez une première version fonctionnelle et vous la validez avant la mise en service.</p></details>
+   <details class="group py-2"><summary class="flex min-h-11 cursor-pointer list-none items-center justify-between gap-4 font-medium text-slate-900">Dois-je être à l'aise avec la technique ?<span aria-hidden="true" class="text-xl transition group-open:rotate-45">+</span></summary><p class="pb-3 text-slate-600">Non. La livraison est clé en main : configuration sur vos appareils et accompagnement jusqu'à votre autonomie.</p></details>
+   <details class="group py-2"><summary class="flex min-h-11 cursor-pointer list-none items-center justify-between gap-4 font-medium text-slate-900">Mes données d'entreprise sont-elles protégées ?<span aria-hidden="true" class="text-xl transition group-open:rotate-45">+</span></summary><p class="pb-3 text-slate-600">Nous nous engageons à une confidentialité totale sur vos données d'entreprise.</p></details>
+   <details class="group py-2"><summary class="flex min-h-11 cursor-pointer list-none items-center justify-between gap-4 font-medium text-slate-900">Quel budget prévoir ?<span aria-hidden="true" class="text-xl transition group-open:rotate-45">+</span></summary><p class="pb-3 text-slate-600">Les solutions sont évolutives selon votre budget. Consultez les offres ci-dessus ou demandez une démo.</p></details>
+  </div>
+ </div>
+</section>
+
+<!-- ============ CONTACT ============ -->
+<section id="contact" class="sec">
+ <div class="wrap grid gap-12 lg:grid-cols-12">
+  <div class="space-y-6 lg:col-span-5">
+   <div><h2 class="h2">Demandez votre démo</h2><p class="mt-3 text-slate-600">Décrivez brièvement votre activité et ce que vous souhaitez améliorer. Nous vous répondons avec une proposition claire.</p></div>
+   <div class="card space-y-5">
+    <div>
+     <p class="text-sm font-medium text-slate-600">E-mail professionnel</p>
+     <div class="mt-1.5 flex items-center justify-between gap-2">
+      <a id="mail" href="mailto:vektorstudio414@gmail.com" class="break-all font-medium text-slate-900 hover:text-brand-800">vektorstudio414@gmail.com</a>
+      <button type="button" id="copy" class="btn-sm shrink-0">Copier</button>
+     </div>
+     <p id="copied" role="status" class="mt-1 text-sm text-emerald-800"></p>
+    </div>
+    <div class="border-t border-slate-100 pt-4">
+     <p class="text-sm font-medium text-slate-600">WhatsApp pro</p>
+     <!-- Remplacer par : <a href="https://wa.me/NUMERO">Écrire sur WhatsApp</a> -->
+     <p class="mt-1.5 font-medium text-slate-900">[Numéro à fournir]</p>
+     <p class="text-sm text-slate-600">Démonstration en ligne ou présentation sur site, selon votre disponibilité.</p>
+    </div>
+    <ul class="ck border-t border-slate-100 pt-4 text-sm"><li>Réponse structurée sous 24 h ouvrées</li><li>Confidentialité totale sur vos données</li><li>Solutions évolutives selon votre budget</li></ul>
+   </div>
+  </div>
+
+  <div class="lg:col-span-7">
+   <div class="card sm:p-8">
+    <form id="form" novalidate class="space-y-5">
+     <p class="text-sm text-slate-600"><span aria-hidden="true">*</span> Champs obligatoires</p>
+     <div class="grid gap-5 sm:grid-cols-2">
+      <div><label for="f-company" class="lbl">Nom ou entreprise *</label><input id="f-company" name="company" required autocomplete="organization" aria-describedby="f-company-error" class="inp" placeholder="Ex : Établissements Horizon"><p id="f-company-error" role="alert" class="err">Indiquez votre nom ou celui de votre entreprise.</p></div>
+      <div><label for="f-contact" class="lbl">E-mail ou téléphone *</label><input id="f-contact" name="contact" required autocomplete="email" aria-describedby="f-contact-error" class="inp" placeholder="Pour vous recontacter"><p id="f-contact-error" role="alert" class="err">Indiquez un e-mail ou un numéro pour vous recontacter.</p></div>
+     </div>
+     <div class="grid gap-5 sm:grid-cols-2">
+      <div><label for="f-type" class="lbl">Votre besoin *</label><select id="f-type" name="type" required class="inp"><option>Site vitrine professionnel</option><option>Outil de gestion sur mesure</option><option>Pack complet (Site vitrine + Outil de gestion)</option></select></div>
+      <div><label for="f-sector" class="lbl">Secteur d'activité (facultatif)</label><input id="f-sector" name="sector" class="inp" placeholder="Ex : quincaillerie, BTP, commerce"></div>
+     </div>
+     <div><label for="f-desc" class="lbl">Description de votre besoin (facultatif)</label><textarea id="f-desc" name="description" rows="4" class="w-full rounded-lg border border-slate-300 px-3.5 py-3 text-base placeholder:text-slate-500" placeholder="Ex : présenter nos produits en ligne, suivre nos stocks, gérer nos devis…"></textarea></div>
+     <input type="text" name="website" tabindex="-1" autocomplete="off" class="hidden" aria-hidden="true">
+     <button type="submit" id="send" class="btn-p w-full sm:w-auto">Envoyer ma demande</button>
+    </form>
+    <div id="done" tabindex="-1" hidden class="space-y-4 py-2">
+     <p id="done-msg" class="rounded-lg border border-emerald-200 bg-emerald-50 p-4 text-emerald-900"></p>
+     <div class="flex flex-wrap items-center gap-4">
+      <a id="mailto" hidden class="btn-p" href="#">Envoyer par e-mail</a>
+      <button type="button" id="again" class="inline-flex min-h-11 items-center font-medium text-slate-700 hover:underline">Envoyer une autre demande</button>
+     </div>
+    </div>
+   </div>
+  </div>
+ </div>
+</section>
+</main>
+
+<!-- ============ FOOTER ============ -->
+<footer class="border-t border-slate-200 py-10">
+ <div class="wrap flex flex-col items-center justify-between gap-4 text-sm text-slate-600 sm:flex-row">
+  <p><span class="font-semibold text-slate-900">Vektor Studio</span> — Sites vitrines et outils de gestion</p>
+  <nav aria-label="Pied de page" class="flex flex-wrap justify-center gap-x-6">
+   <a class="inline-flex min-h-11 items-center hover:text-slate-900" href="#services">Services</a>
+   <a class="inline-flex min-h-11 items-center hover:text-slate-900" href="#demonstrations">Démonstrations</a>
+   <a class="inline-flex min-h-11 items-center hover:text-slate-900" href="#contact">Contact</a>
+   <!-- Pages à créer -->
+   <a class="inline-flex min-h-11 items-center hover:text-slate-900" href="/mentions-legales">Mentions légales</a>
+   <a class="inline-flex min-h-11 items-center hover:text-slate-900" href="/confidentialite">Confidentialité</a>
+  </nav>
+  <p>© <span id="yr"></span> Vektor Studio</p>
+ </div>
+</footer>
+
+<script>
+const $=id=>document.getElementById(id), esc=t=>{const d=document.createElement('div');d.textContent=t;return d.innerHTML};
+$('yr').textContent=new Date().getFullYear();
+
+/* Menu mobile */
+const mb=$('menu-btn'),mn=$('menu');
+mb.onclick=()=>mb.setAttribute('aria-expanded',!mn.classList.toggle('hidden'));
+mn.querySelectorAll('a').forEach(a=>a.onclick=()=>{mn.classList.add('hidden');mb.setAttribute('aria-expanded',false)});
+
+/* Onglets (clavier : flèches) */
+const tabs=['gestion','vitrine'];
+function tab(k,focus){tabs.forEach(t=>{const on=t===k,b=$('t-'+t);b.setAttribute('aria-selected',on);b.tabIndex=on?0:-1;$('p-'+t).hidden=!on;if(on&&focus)b.focus()})}
+tabs.forEach(t=>{$('t-'+t).onclick=()=>tab(t);$('t-'+t).onkeydown=e=>{if(e.key==='ArrowRight'||e.key==='ArrowLeft'){e.preventDefault();tab(tabs[1-tabs.indexOf(t)],true)}}});
+document.querySelectorAll('[data-tab]').forEach(a=>a.addEventListener('click',()=>tab(a.dataset.tab)));
+
+/* Démo stock */
+const init=[{id:'REF-101',n:'Ciment Portland 50 kg (sac)',p:14,q:45,m:15},{id:'REF-102',n:'Fer à béton Ø12 mm (barre 12 m)',p:11,q:8,m:10},{id:'REF-103',n:'Tôle bac acier galvanisé 3 m',p:22,q:24,m:8},{id:'REF-104',n:'Peinture acrylique bâtiment 20 L',p:38,q:4,m:5}];
+let items=structuredClone(init);
+const log=m=>$('log').textContent=m;
+function render(){
+ const f=$('s-q').value.trim().toLowerCase(),list=items.filter(i=>i.n.toLowerCase().includes(f)||i.id.toLowerCase().includes(f));
+ $('rows').innerHTML=list.length?list.map(i=>{const low=i.q<=i.m;return`<tr class="hover:bg-slate-50"><td class="hidden px-4 py-3 font-mono text-xs text-slate-600 sm:table-cell">${i.id}</td><td class="px-4 py-3 font-medium text-slate-900">${esc(i.n)}${low?'<span class="ml-2 rounded border border-amber-200 bg-amber-50 px-1.5 py-0.5 text-xs text-amber-900 md:hidden">Stock bas</span>':''}</td><td class="hidden px-4 py-3 sm:table-cell">${i.p.toFixed(2)} $</td><td class="px-4 py-3 font-semibold text-slate-900">${i.q}</td><td class="hidden px-4 py-3 md:table-cell"><span class="rounded border px-2 py-0.5 text-xs font-medium ${low?'border-amber-200 bg-amber-50 text-amber-900':'border-emerald-200 bg-emerald-50 text-emerald-900'}">${low?'Stock bas':'Disponible'}</span></td><td class="sticky right-0 whitespace-nowrap bg-white px-4 py-2 text-right"><button type="button" data-id="${i.id}" data-d="-1" class="btn-sm">Vente</button> <button type="button" data-id="${i.id}" data-d="1" class="btn-sm !border-brand-800 !bg-brand-800 !text-white hover:!bg-brand-600">Entrée</button></td></tr>`}).join(''):'<tr><td colspan="6" class="px-4 py-6 text-center text-slate-600">Aucun article ne correspond. Modifiez votre recherche.</td></tr>';
+ $('k-n').textContent=items.length;
+ $('k-v').textContent=items.reduce((s,i)=>s+i.p*i.q,0).toLocaleString('fr-FR')+' $';
+ $('k-l').textContent=items.filter(i=>i.q<=i.m).length;
+}
+$('rows').onclick=e=>{const b=e.target.closest('button[data-id]');if(!b)return;const i=items.find(x=>x.id===b.dataset.id),d=+b.dataset.d;
+ if(i.q+d<0)return log(`Action impossible : le stock de « ${i.n} » est déjà à 0.`);
+ i.q+=d;render();log(`${d>0?'Entrée (+1)':'Vente (-1)'} sur « ${i.n} ». Nouveau solde : ${i.q}.`);
+ document.querySelector(`button[data-id="${i.id}"][data-d="${d}"]`)?.focus()};
+$('s-q').oninput=render;
+$('add').onsubmit=e=>{e.preventDefault();const n=$('a-n').value.trim(),q=parseInt($('a-q').value,10),p=parseFloat($('a-p').value);if(!n||isNaN(q)||isNaN(p))return;
+ items.unshift({id:'REF-'+(101+items.length),n,p,q,m:5});e.target.reset();render();log(`Article ajouté : « ${n} » (${q} unités à ${p.toFixed(2)} $).`)};
+$('reset').onclick=()=>{items=structuredClone(init);$('s-q').value='';render();log('Données de démonstration réinitialisées.')};
+
+/* Démo vitrine */
+const themes={
+ materiaux:{b:'K-Matériaux Pro',g:'Fournitures et gros œuvre',t:"Votre fournisseur fiable de matériaux de construction et d'outillage professionnel.",d:'Consultez nos références disponibles en dépôt, vérifiez nos conditions de livraison sur chantier et obtenez un devis chiffré sous 2 heures.',c:[['Ciment et fer à béton','Approvisionnement régulier pour chantiers résidentiels et industriels.'],['Toiture et étanchéité','Tôles galvanisées, charpentes et accessoires sur mesure.'],['Livraison sur site','Transport planifié directement vers votre zone de travaux.']],ft:"Besoin d'une liste de prix ou d'une commande groupée ?",fs:'Réponse rapide par téléphone ou formulaire dédié.'},
+ logistique:{b:'TransAxis Services',g:'Transport et logistique locale',t:'Solutions de transport sécurisé et de gestion de flotte pour entreprises et sous-traitants.',d:'Suivi rigoureux des expéditions, disponibilité immédiate de véhicules utilitaires et devis transparents pour vos besoins ponctuels ou réguliers.',c:[['Fret et approvisionnement','Acheminement sécurisé de marchandises et équipements techniques.'],['Location avec chauffeur','Véhicules entretenus et opérateurs qualifiés, à la journée ou au mois.'],['Suivi et rapports','Compte-rendu clair de chaque mission et facturation centralisée.']],ft:'Planifiez un transport ou demandez un contrat cadre',fs:'Notre équipe exploitation vous répond dans la journée.'}};
+function sector(k){const x=themes[k];
+ document.querySelectorAll('[data-s]').forEach(b=>b.setAttribute('aria-pressed',b.dataset.s===k));
+ $('v-brand').textContent=x.b;$('v-badge').textContent=x.g;$('v-title').textContent=x.t;$('v-desc').textContent=x.d;$('v-ft').textContent=x.ft;$('v-fs').textContent=x.fs;
+ $('v-cards').innerHTML=x.c.map(([a,b])=>`<div class="rounded-lg border border-slate-200 bg-slate-50/60 p-4"><p class="font-semibold text-slate-900">${a}</p><p class="mt-1.5 text-sm text-slate-600">${b}</p></div>`).join('')}
+document.querySelectorAll('[data-s]').forEach(b=>b.onclick=()=>sector(b.dataset.s));
+
+/* Pré-sélection du besoin depuis les tarifs */
+document.querySelectorAll('[data-need]').forEach(a=>a.addEventListener('click',()=>$('f-type').value=a.dataset.need));
+
+/* Copie e-mail */
+$('copy').onclick=async()=>{try{await navigator.clipboard.writeText($('mail').textContent.trim());$('copied').textContent='Adresse copiée.'}catch{$('copied').textContent='Copie impossible : sélectionnez l\'adresse manuellement.'}setTimeout(()=>$('copied').textContent='',3000)};
+
+/* Formulaire : validation en ligne, envoi réel, repli e-mail honnête */
+const ENDPOINT='/api/contact'; // À brancher : route Next.js + Resend, Formspree, Web3Forms…
+const form=$('form');
+function showDone(ok,data){
+ form.hidden=true;$('done').hidden=false;
+ $('done-msg').textContent=ok?'Demande envoyée. Nous vous répondons sous 24 h ouvrées.':"L'envoi automatique n'a pas abouti. Votre demande n'est pas encore transmise : envoyez-la par e-mail avec le bouton ci-dessous.";
+ const m=$('mailto');m.hidden=ok;
+ if(!ok)m.href='mailto:vektorstudio414@gmail.com?subject='+encodeURIComponent(`[Demande démo] ${data.company} — ${data.type}`)+'&body='+encodeURIComponent(`Entreprise : ${data.company}\nContact : ${data.contact}\nBesoin : ${data.type}\nSecteur : ${data.sector||'-'}\n\n${data.description||''}`);
+ $('done').focus();
+}
+form.onsubmit=async e=>{
+ e.preventDefault();let bad=null;
+ form.querySelectorAll('[required]').forEach(f=>{const err=$(f.id+'-error'),b=!f.value.trim();f.setAttribute('aria-invalid',b);if(err)err.classList.toggle('hidden',!b);if(b&&!bad)bad=f});
+ if(bad)return bad.focus();
+ const fd=new FormData(form),data=Object.fromEntries(fd),btn=$('send');
+ if(data.website)return; // anti-spam
+ btn.disabled=true;btn.textContent='Envoi en cours…';
+ try{const r=await fetch(ENDPOINT,{method:'POST',body:fd});if(!r.ok)throw 0;showDone(true,data)}catch{showDone(false,data)}
+ btn.disabled=false;btn.textContent='Envoyer ma demande';
+};
+$('again').onclick=()=>{form.reset();form.hidden=false;$('done').hidden=true;$('f-company').focus()};
+
+render();sector('materiaux');
+</script>
+</body>
+</html>
